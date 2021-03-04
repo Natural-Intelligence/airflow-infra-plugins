@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#myInput {
+background-image: url('/css/searchicon.png');
+background-position: 10px 10px;
+background-repeat: no-repeat;
+width: 25%;
+font-size: 16px;
+padding: 12px 20px 12px 40px;
+border: 1px solid #ddd;
+margin-bottom: 12px;
+}
+#styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+#styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+#styled-table th,
+#styled-table td {
+    padding: 12px 15px;
+}
+#styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+#styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+#styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+#styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+</style>
+</head>
+<body>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for distribution.." title="Type in a name">
+        <table id="styled-table">
+            <thead>
+                <tr>
+                    <th>Distribution</th>
+                    <th>Version</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dist in dists %}
+                <tr class="active-row">
+                    {% set attr = dist.split(' ') %}
+                    <td>{{ attr[0] }}</td>
+                    <td>{{ attr[1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("styled-table");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
