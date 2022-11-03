@@ -7,6 +7,9 @@ ul,#myUL {
 list-style-type: none;
 }
 
+
+.tab { margin-left: 40px; }
+
 #myUL {
     margin: 0;
     padding: 0;
@@ -58,6 +61,9 @@ transform: rotate(90deg);
             <ul class="nested">
                 {%- for item in tree.children recursive %}
                 <li><span class="caret">{{ item.name }}</span>
+                    {%- if item.name == "liminal.yml" -%}
+                        <p class="tab">{{item.pipeline}}</p>
+                    {%- endif %}
                     {%- if item.children -%}
                     <ul class="nested">{{ loop(item.children) }}</ul>
                     {%- endif %}
